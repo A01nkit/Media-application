@@ -14,8 +14,7 @@ export {asyncHandler}
 
 /*
 try catch based approach
-*/
-/*
+
 const asyncHandler = (fn) => async (req, res, next) => {
     try {
         await fn(req, res, next)

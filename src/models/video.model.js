@@ -1,13 +1,13 @@
 import mongoose, {Schema} from "mongoose"
-//import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2"
+//import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2"  USED AS A PLUGIN 
 
 const videoSchema = new Schema({
     videoFile: {
-        type: String,// cloudinary url
+        type: String, // cloudinary url
         required: true
     },
     thumbnail: {
-        type: String,// cloudinary url
+        type: String, // cloudinary url
         required: true
     },
     title: {
@@ -18,7 +18,7 @@ const videoSchema = new Schema({
         type: String,
         required: true
     },
-    duration: {
+    duration: {//we get duration from cloudinary
         type: Number,
         required: true
     },
@@ -39,6 +39,7 @@ const videoSchema = new Schema({
 {
     timestamps: true
 })
+
 
 
 export const Video = mongoose.model("Video", videoSchema)

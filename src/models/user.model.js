@@ -1,6 +1,6 @@
 import mongoose, {Schema} from "mongoose"
-import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 
 const userSchema = new Schema({
@@ -26,16 +26,18 @@ const userSchema = new Schema({
         index: true
     },
     avatar: {
-        type: String,//cloudinary url
-        required: true,
+        type: String, //cloudinary url
+        required: true
     },
     coverImage: {
-        type: String//cloudinary url
+        type: String //cloudinary url
     },
-    watchHistory: {
-        type: Schema.Types.ObjectId,
-        ref: "Video"
-    },
+    watchHistory: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Video"
+        }
+    ],
     password: {
         type: String,
         required: [true, 'Password is required']   
@@ -48,6 +50,8 @@ const userSchema = new Schema({
     timestamps: true
 }) 
 
+
+//pre hook (here, we do not use aroow function as they don't have this->)
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password"))    return next();
 
@@ -55,6 +59,7 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+//Defining custom methods
 userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)
 }
@@ -84,4 +89,5 @@ userSchema.methods.generateRefreshToken = function(){
     ) 
 }
 
-export const User = mongoose.model("User", "userSchema")
+
+export const User = mongoose.model("User", userSchema)

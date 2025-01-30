@@ -12,9 +12,9 @@ connectDB()
     //we are listening error for an event. i.e; listening after db connection and before server listening
     app.on("error", (error) => {
         console.log("ERROR: ", error);
-        throw error;  
+        throw error;   
     })
-    app.listen(process.env.PORT || 8000, () => {
+    app.listen(process.env.PORT || 2000, () => {
         console.log(`Server is running at port: ${process.env.PORT}`);
     })
 })
